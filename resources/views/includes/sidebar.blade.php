@@ -14,6 +14,10 @@
                     <a href="{{ route('products.create') }}"> <i class="menu-icon fa fa-spinner"></i>Tambah Barang </a>
                 </li>
                
+                <li>
+                    <a href="{{ route('transactions.index') }}"> <i class="menu-icon fa fa-spinner"></i>Transaksi Barang </a>
+                </li>
+               
 
         </div><!-- /.navbar-collapse -->
     </nav>

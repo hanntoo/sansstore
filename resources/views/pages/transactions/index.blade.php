@@ -5,7 +5,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-bod">
-                    <div class="box-title p-2">Daftar Barang</div>
+                    <div class="box-title p-2">Tranksasi Barang</div>
                 </div>
                 <div class="card-body">
                     <div class="tabel-stats order-table ov-h">
@@ -13,20 +13,42 @@
                             <thead>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Type</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Action</th>
+                                <th>Email</th>
+                                <th>Number</th>
+                                <th>Transaction Total</th>
+                                <th>Transaction Status</th>
+                                <th>Actions</th>
                             </thead>
                             <tbody>
                                 @forelse ($items as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->price }}</td>
-                                    <td>{{ $item->quantity }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->number }}</td>
+                                    <td>Rp {{ $item->transaction_total }}</td>
                                     <td>
+                                        @if ($item->transaction_status == 'PENDING')
+                                        <span class="badge badge-info"></span>
+                                        @elseif ($item->transaction_status == 'SUCCESS')
+                                        <span class="badge badge-success"></span>
+                                        @elseif ($item->transaction_status == 'FAILED')
+                                        <span class="badge badge-error"></span>
+                                        @else
+                                            <span>
+                                        @endif
+                                                {{ $item->transaction_status }}
+                                            </span>
+                                    </td>
+                                    <td>
+                                        <a href="#mymodal"
+                                            data-remote =  "{{ route('transactions.show', $item->id) }}"
+                                            data-toogle =  "modal"
+                                            data-target =  "#mymodal"
+                                            data-title =  "Detail Transaksi {{ $item->uuid }}"
+                                            class="btn btn-info btn-sm">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
                                         <a href="{{ route('products.edit', $item->id) }}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-pencil"></i>
                                         </a>
